@@ -31,21 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Netflix',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Netflix',
     'rest_framework',
     'Api',
     'django_postgres_dropdb',
-    'rest_framework.authtoken'
-    
-    
+    'rest_framework.authtoken'   
 ]
 
+REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'users.serializers.ProfileSerializer' }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,7 +89,8 @@ DATABASES = {
     }
 }
 
-# AUTH_USER_MODEL = 'Netflix.User'
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
