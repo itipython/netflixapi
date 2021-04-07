@@ -8,5 +8,7 @@ urlpatterns = [
     path(('shows/'), views.viewShows.as_view()),
     path(('users/'), views.viewUsers.as_view()),
     path(('register/'), views.Registration),
-    path('login/', obtain_auth_token)
+    # It must be login not login/
+    path('login', obtain_auth_token),
+    path('logout', views.logout)
 ]

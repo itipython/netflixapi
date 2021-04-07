@@ -17,8 +17,8 @@ class Membership(models.Model):
         return self.name
 
 # class User(models.Model):
-class Profile(models.Model):
-    user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
+class Profile(AbstractUser):
+    username = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
     password = models.CharField(max_length=255, null=True)
@@ -30,13 +30,15 @@ class Profile(models.Model):
     register_date = models.DateField()
     avatar = models.TextField()
     # membership = models.ForeignKey(Membership,null=True, on_delete=models.SET_NULL)
-    payment	= models.DateField()
+    payment_day	= models.DateField()
     membership_Start_Date = models.DateField()
 
+    #  REQUIRED_FIELDS to create super user, They must not be null
+    REQUIRED_FIELDS  = ["first_name","phone","country","birth_date","gender","register_date",
+                        "avatar","payment_day","membership_Start_Date",]
 
     def __str__(self):
-        return (f'{self.first_name} {self.last_name}')
-    
+        return (username)    
 
 
 class Watch(models.Model):

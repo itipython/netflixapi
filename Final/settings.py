@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken'   
 ]
 
-REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'users.serializers.ProfileSerializer' }
+AUTH_USER_MODEL = 'Netflix.Profile'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
