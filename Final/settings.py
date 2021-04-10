@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Rest Api 
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     # Drop DB
     'django_postgres_dropdb',
     # Rest-Auth Api Package
@@ -58,10 +59,16 @@ INSTALLED_APPS = [
     # CORS Disable library
     'corsheaders',
 ]
+# Added Settings
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
+# Solve admin query doesn't exist because of  'django.contrib.sites',
 SITE_ID = 1
+# Override default User model
 AUTH_USER_MODEL = 'Netflix.Profile'
-REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
+# REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
 CORS_ORIGIN_ALLOW_ALL = True
 
 

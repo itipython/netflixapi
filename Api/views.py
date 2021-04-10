@@ -1,28 +1,32 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from Netflix.models.Show import Show, Genre
+# Imported Packages and Classes
 from Netflix.models.Profile import Profile
-from .Serializer import ShowSerializer, ProfileSerializer, RegistrationSerilalizer
+from Netflix.models.Show import Show, Genre
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import logout
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import api_view, permission_classes
+from .Serializer import ShowSerializer, ProfileSerializer, RegistrationSerilalizer
 
 
 
 # Create your views here.
+
+# List All Shows
 @permission_classes([IsAuthenticated,])
 class viewShows(generics.ListAPIView):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
+    filter_backends = [DjangoFilterBackend]
 
+
+# List All Users
 @permission_classes([IsAuthenticated,])
 class viewUsers(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+# User Registration Api View
 @api_view(['POST',])
 def Registration(request):
     serializer = RegistrationSerilalizer(data=request.data)
@@ -39,12 +43,6 @@ def Registration(request):
         },status=status.HTTP_400_BAD_REQUEST
     )
 
-# class getUser(generics.ListAPIView):
-#     serializer_class = ProfileSerializer
-#     def get_queryset(self):
-#         user_id = Token.objects.get(key="41afcdf581fe053b59dc38b28ea431fca3081629").user_id
-#         users = Profile.objects.all()
-#         return users
 
 @permission_classes([IsAuthenticated])
 class UpdateProfile(generics.UpdateAPIView):
@@ -58,3 +56,10 @@ class getCategory_Movies(generics.ListAPIView):
         category = self.kwargs.get('name')
         movies = Show.objects.filter(genres__name=category)
         return (movies)
+
+class getMovie(generics.ListAPIView):
+    serializer_class = ShowSerializer
+    def get_queryset(self):
+        movieName = self.kwargs.get('name')
+        movie = Show.objects.filter(name=movieName)
+        return movie

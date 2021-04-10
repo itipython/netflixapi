@@ -2,7 +2,6 @@ from rest_framework import serializers
 from Netflix.models.Show import Show
 from Netflix.models.Profile import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 class ShowSerializer(serializers.ModelSerializer):
     authors = serializers.StringRelatedField(many=True)
@@ -45,7 +44,6 @@ class RegistrationSerilalizer(serializers.ModelSerializer):
             country =  self.validated_data['country'],
             birth_date =  self.validated_data['birth_date'],
             gender =  self.validated_data['gender'],
-            # register_date =  self.validated_data['register_date'],
             avatar =  self.validated_data['avatar'],
             membership =  self.validated_data['membership'],
             payment_day =  self.validated_data['payment_day'],

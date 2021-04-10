@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .Show import Show
-from django.contrib.auth.models import User
 
 # Create your models here.
 
