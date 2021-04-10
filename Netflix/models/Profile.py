@@ -19,26 +19,28 @@ class Membership(models.Model):
 # class User(models.Model):
 class Profile(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
-    first_name = models.CharField(max_length=255, null=True)
-    last_name = models.CharField(max_length=255, null=True)
-    password = models.CharField(max_length=255, null=True)
-    email = models.EmailField(max_length=254, null=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=255)
     country	= models.CharField(max_length=100)
     birth_date = models.DateField()
     gender	= models.CharField(max_length=50)
-    register_date = models.DateField()
-    avatar = models.TextField()
-    # membership = models.ForeignKey(Membership,null=True, on_delete=models.SET_NULL)
-    payment_day	= models.DateField()
+    register_date = models.DateField(auto_now_add=True)
+    avatar = models.TextField(null=True)
+    membership = models.ForeignKey(Membership,null=True, on_delete=models.SET_NULL)
+    payment_day	= models.IntegerField()
     membership_Start_Date = models.DateField()
 
     #  REQUIRED_FIELDS to create super user, They must not be null
-    REQUIRED_FIELDS  = ["first_name","phone","country","birth_date","gender","register_date",
-                        "avatar","payment_day","membership_Start_Date",]
+    REQUIRED_FIELDS  = ["first_name","phone","country","birth_date","gender"    
+                        ,"payment_day","membership_Start_Date",]
 
     def __str__(self):
-        return (username)    
+        return (self.username)    
+
+
 
 
 class Watch(models.Model):

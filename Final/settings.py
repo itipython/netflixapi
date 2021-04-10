@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+# CORS Allowed Headers
+from corsheaders.defaults import default_headers
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,22 +35,41 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Created Apps 
     'Netflix',
     'django.contrib.admin',
+    'Api',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Rest Api 
     'rest_framework',
-    'Api',
+    'rest_framework.authtoken',
+    # Drop DB
     'django_postgres_dropdb',
-    'rest_framework.authtoken'   
+    # Rest-Auth Api Package
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    # CORS Disable library
+    'corsheaders',
 ]
 
+SITE_ID = 1
 AUTH_USER_MODEL = 'Netflix.Profile'
+REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 
 MIDDLEWARE = [
+    # CORS 
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Final.urls'

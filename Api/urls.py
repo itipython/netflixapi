@@ -1,14 +1,22 @@
 from django.urls import path, include
 from . import views
 from rest_framework.authtoken.views import obtain_auth_token
+from django.conf.urls import url
 
 
 urlpatterns = [
     path('', include('rest_framework.urls')),
+    path(('category/<str:name>'), views.getCategory_Movies.as_view()),
     path(('shows/'), views.viewShows.as_view()),
     path(('users/'), views.viewUsers.as_view()),
     path(('register/'), views.Registration),
     # It must be login not login/
     path('login', obtain_auth_token),
-    path('logout', views.logout)
+    
+    # /logout/, /user/ --> Current logged in user , /password/change/ 
+    url('rest-auth/', include('rest_auth.urls')),
+    path('update/<int:pk>',views.UpdateProfile.as_view()),
+
+
+    # path('getuser', views.getUser.as_view()),
 ]

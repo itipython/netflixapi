@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from Netflix.models.Show import Show
+from Netflix.models.Show import Show, Genre
 from Netflix.models.Profile import Profile
-from .Serializer import ShowSerializer, UserSerializer, RegistrationSerilalizer
+from .Serializer import ShowSerializer, ProfileSerializer, RegistrationSerilalizer
 from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -20,7 +21,7 @@ class viewShows(generics.ListAPIView):
 @permission_classes([IsAuthenticated,])
 class viewUsers(generics.ListAPIView):
     queryset = Profile.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = ProfileSerializer
 
 @api_view(['POST',])
 def Registration(request):
@@ -38,8 +39,22 @@ def Registration(request):
         },status=status.HTTP_400_BAD_REQUEST
     )
 
+# class getUser(generics.ListAPIView):
+#     serializer_class = ProfileSerializer
+#     def get_queryset(self):
+#         user_id = Token.objects.get(key="41afcdf581fe053b59dc38b28ea431fca3081629").user_id
+#         users = Profile.objects.all()
+#         return users
 
-def logout(request):
-    logout(request)
+@permission_classes([IsAuthenticated])
+class UpdateProfile(generics.UpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 
+class getCategory_Movies(generics.ListAPIView):
+    serializer_class = ShowSerializer
+    def get_queryset(self):
+        category = self.kwargs.get('name')
+        movies = Show.objects.filter(genres__name=category)
+        return (movies)

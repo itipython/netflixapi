@@ -18,18 +18,18 @@ class ShowSerializer(serializers.ModelSerializer):
       
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     membership = serializers.StringRelatedField()
     class Meta:
         model = Profile
-        exclude =  ['password',]
+        exclude =  ['date_joined','password',"last_login", "is_superuser","is_staff","is_active", "groups","user_permissions"]
 
 class RegistrationSerilalizer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only= True)
     class Meta:
         model = Profile
         fields = ['username','first_name','last_name','email','password','password2','phone','country','birth_date'
-        ,'gender','register_date','avatar','payment_day','membership_Start_Date']
+        ,'gender','avatar','membership','payment_day','membership_Start_Date']
 
         extra_kwargs = {
             'password':{'write_only':True},
@@ -45,9 +45,9 @@ class RegistrationSerilalizer(serializers.ModelSerializer):
             country =  self.validated_data['country'],
             birth_date =  self.validated_data['birth_date'],
             gender =  self.validated_data['gender'],
-            register_date =  self.validated_data['register_date'],
+            # register_date =  self.validated_data['register_date'],
             avatar =  self.validated_data['avatar'],
-            # membership =  self.validated_data['membership'],
+            membership =  self.validated_data['membership'],
             payment_day =  self.validated_data['payment_day'],
             membership_Start_Date =  self.validated_data['membership_Start_Date'],
         )
