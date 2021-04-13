@@ -16,5 +16,9 @@ urlpatterns = [
     
     # /logout/, /user/ --> Current logged in user , /password/change/ 
     url('rest-auth/', include('rest_auth.urls')),
-    path('update/<int:pk>',views.UpdateProfile.as_view()),
+    path('update/<int:pk>/',views.UpdateProfile.as_view()),
+    path('addlater/',views.addWatchLater),
+    path('watchlater/',views.viewWatchLater),
+
+    path('user/',views.currentUser)
 ]

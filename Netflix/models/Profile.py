@@ -43,23 +43,26 @@ class Profile(AbstractUser):
 
 
 class Watch(models.Model):
-    show_id = models.ForeignKey(Show, on_delete=models.CASCADE)
-    User_id	= models.ForeignKey(Profile, on_delete=models.CASCADE)
-    Date = 	models.DateField()
-    Current_Duration = models.DurationField()
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date = 	models.DateField()
+    current_duration = models.DurationField()
 
 
 
 class Watched(models.Model):
-    Show_id = models.ForeignKey(Show, on_delete=models.CASCADE)
-    User_id	= models.ForeignKey(Profile, on_delete=models.CASCADE)
-    User_Rating = models.IntegerField() 
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user_rating = models.IntegerField() 
 
 
 
 class WatchLater(models.Model):
-    Show_id = models.ForeignKey(Show, on_delete=models.CASCADE)
-    User_id	= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    class Meta:      
+        unique_together = ("show", "user")
 
 
 
@@ -67,4 +70,4 @@ class Subscribe(models.Model):
     membership = models.ForeignKey(Membership,on_delete=models.CASCADE)
     user = models.ForeignKey(Profile,on_delete=models.CASCADE)
     start_date = models.DateTimeField()
-    payment_date = models.DateTimeField()
+    payment_date = models.DateTimeField(auto_now_add=True)

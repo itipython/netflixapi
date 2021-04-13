@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from Netflix.models.Show import Show
-from Netflix.models.Profile import Profile
-from django.contrib.auth.models import User
+from Netflix.models.Profile import Profile, WatchLater
+from django.core import exceptions
+import django.contrib.auth.password_validation as validators
+
 
 class ShowSerializer(serializers.ModelSerializer):
     authors = serializers.StringRelatedField(many=True)
@@ -53,19 +55,26 @@ class RegistrationSerilalizer(serializers.ModelSerializer):
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
 
-        if len(password) < 8:
+        try:
+            (validators.validate_password(password) != None)
+        except exceptions.ValidationError as e:
             raise serializers.ValidationError({
-                'password' : "Password must be at least 8 chars"
+                "error":e
             })
-        elif password != password2:
-            raise serializers.ValidationError({
-                'password' : "Password Doesn't Match"
-            })
- 
+        else:
+            if password != password2:
+                raise serializers.ValidationError({
+                    'password' : "Password Doesn't Match"
+                })
+
         user.set_password(password)
         user.save()
         return user
 
 
+class WatchLaterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WatchLater
+        fields = "__all__"
 
 
