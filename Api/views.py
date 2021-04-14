@@ -60,7 +60,7 @@ class UpdateProfile(generics.UpdateAPIView):
 
 
 # Get Movies of category
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class getCategory_Movies(generics.ListAPIView):
     serializer_class = ShowSerializer
     def get_queryset(self):
