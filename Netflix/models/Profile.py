@@ -53,9 +53,9 @@ class Watch(models.Model):
 class Watched(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    user_rating = models.IntegerField() 
 
-
+    class Meta:      
+        unique_together = ("show", "user")
 
 class WatchLater(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)

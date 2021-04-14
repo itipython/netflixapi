@@ -1,13 +1,15 @@
 # Imported Packages and Classes
-from Netflix.models.Profile import Profile, WatchLater
+from Netflix.models.Profile import Profile, WatchLater, Watched
 from Netflix.models.Show import Show, Genre
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view, permission_classes
-from .Serializer import ShowSerializer, ProfileSerializer, RegistrationSerilalizer, WatchLaterSerializer
+from .Serializer import ShowSerializer, ProfileSerializer, RegistrationSerilalizer, WatchLaterSerializer, WatchedSerializer
 from django.http import HttpResponse
+from rest_framework.views import APIView
+
 
 
 # Create your views here.
@@ -43,13 +45,22 @@ def Registration(request):
         },status=status.HTTP_400_BAD_REQUEST
     )
 
+# Logged in User
+@api_view(('GET',))    
+def currentUser(request):
+    user = ProfileSerializer(request.user)
+    return Response(user.data)
 
+
+# Edit User Profile
 @permission_classes([IsAuthenticated])
 class UpdateProfile(generics.UpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
+# Get Movies of category
+@permission_classes([IsAuthenticated])
 class getCategory_Movies(generics.ListAPIView):
     serializer_class = ShowSerializer
     def get_queryset(self):
@@ -57,13 +68,48 @@ class getCategory_Movies(generics.ListAPIView):
         movies = Show.objects.filter(genres__name=category)
         return (movies)
 
-class getMovie(generics.ListAPIView):
-    serializer_class = ShowSerializer
-    def get_queryset(self):
-        movieName = self.kwargs.get('name')
-        movie = Show.objects.filter(name=movieName)
-        return movie
 
+#  Get Show and Add it to History list
+@api_view(('GET',)) 
+@permission_classes([IsAuthenticated])
+def getShow(request, name):
+    show = Show.objects.get(name=name)
+    serializer = ShowSerializer(show)
+    user = request.user
+
+    history = Watched.objects.create(show=show, user=user)
+
+    return Response(serializer.data)
+
+# View User History
+@api_view(('GET',))    
+@permission_classes([IsAuthenticated])
+def userHistory(request):
+    user = ProfileSerializer(request.user)
+    user_queryset = Watched.objects.filter(user=user.data['id'])
+    show_ids = []
+
+    for q in user_queryset:
+        show_ids.append(q.show_id)
+    
+    shows_list = Show.objects.filter(id__in=show_ids)
+    serializer = ShowSerializer(shows_list, many=True)
+    return Response(serializer.data)
+
+
+# Delete Show from History
+@api_view(('DELETE',))   
+@permission_classes([IsAuthenticated])
+def removeHistory(request, id):
+    user = request.user
+    show = Watched.objects.filter(user=user,show=id).delete()
+    return Response(data={
+        "Message":"Show is removed from your History"
+    })
+
+
+
+# Add Show to Watch Later List
 @api_view(['POST',])
 @permission_classes([IsAuthenticated])
 def addWatchLater(request):
@@ -80,8 +126,9 @@ def addWatchLater(request):
             },status=status.HTTP_400_BAD_REQUEST
         )
 
- 
 
+
+# View Watch Later List
 @api_view(('GET',))    
 @permission_classes([IsAuthenticated])
 def viewWatchLater(request):
@@ -97,10 +144,12 @@ def viewWatchLater(request):
     return Response(serializer.data)
 
 
-
-
-@api_view(('GET',))    
-def currentUser(request):
-    user = ProfileSerializer(request.user)
-    return Response(user.data)
-    
+# Delete Show from Watch Later
+@api_view(('DELETE',))   
+@permission_classes([IsAuthenticated])
+def removeLater(request, id):
+    user = request.user
+    show = WatchLater.objects.filter(user=user,show=id).delete()
+    return Response(data={
+        "Message":"Show is removed from your show later list"
+    })

@@ -68,7 +68,7 @@ REST_FRAMEWORK = {
 SITE_ID = 1
 # Override default User model
 AUTH_USER_MODEL = 'Netflix.Profile'
-# REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
+REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
 CORS_ORIGIN_ALLOW_ALL = True
 
 

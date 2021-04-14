@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from Netflix.models.Show import Show
-from Netflix.models.Profile import Profile, WatchLater
+from Netflix.models.Profile import Profile, WatchLater, Watched
 from django.core import exceptions
 import django.contrib.auth.password_validation as validators
 
@@ -77,4 +77,8 @@ class WatchLaterSerializer(serializers.ModelSerializer):
         model = WatchLater
         fields = "__all__"
 
+class WatchedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watched
+        fields =['show','user']
 
