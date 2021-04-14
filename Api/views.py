@@ -136,7 +136,7 @@ def addWatchLater(request):
 @permission_classes([IsAuthenticated])
 def viewWatchLater(request):
     user = ProfileSerializer(request.user)
-    user_queryset = WatchLater.objects.filter(user=user.data['id'])
+    user_queryset = WatchLater.objects.filter(User_id=user.data['id'])
     show_ids = []
 
     for q in user_queryset:
