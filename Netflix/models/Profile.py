@@ -30,7 +30,7 @@ class Profile(AbstractUser):
     email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=255)
     #country	= models.CharField(max_length=100,null=True)  ####Deleted
-    country	= models.ForeignKey(Country,null=True, on_delete=models.SET_NULL) #####added
+    country	= models.ForeignKey(Country,null=True, blank=True,  on_delete=models.SET_NULL) #####added
     Male = 'Male'
     Female = 'Female'
     Genders= [
@@ -69,7 +69,7 @@ class Watch(models.Model):
 class Watched(models.Model):
     Show_id = models.ForeignKey(Show, on_delete=models.CASCADE)
     User_id	= models.ForeignKey(Profile, on_delete=models.CASCADE)
-    User_Rating = models.IntegerField() 
+    User_Rating = models.IntegerField(blank=True, null=True) 
 
 
 

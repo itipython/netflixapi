@@ -77,7 +77,7 @@ def getShow(request, name):
     serializer = ShowSerializer(show)
     user = request.user
 
-    history, created = Watched.objects.update_or_create(show=show, user=user)
+    history, created = Watched.objects.update_or_create(Show_id=show, User_id=user)
 
     return Response(serializer.data)
 
@@ -86,7 +86,7 @@ def getShow(request, name):
 @permission_classes([IsAuthenticated])
 def userHistory(request):
     user = ProfileSerializer(request.user)
-    user_queryset = Watched.objects.filter(user=user.data['id'])
+    user_queryset = Watched.objects.filter(User_id=user.data['id'])
     show_ids = []
 
     for q in user_queryset:
@@ -102,7 +102,7 @@ def userHistory(request):
 @permission_classes([IsAuthenticated])
 def removeHistory(request, id):
     user = request.user
-    show = Watched.objects.filter(user=user,show=id).delete()
+    show = Watched.objects.filter(User_id=user,Show_id=id).delete()
     return Response(data={
         "Message":"Show is removed from your History"
     })
@@ -133,7 +133,7 @@ def addWatchLater(request):
 @permission_classes([IsAuthenticated])
 def viewWatchLater(request):
     user = ProfileSerializer(request.user)
-    user_queryset = WatchLater.objects.filter(user=user.data['id'])
+    user_queryset = WatchLater.objects.filter(User_id=user.data['id'])
     show_ids = []
 
     for q in user_queryset:
@@ -149,7 +149,7 @@ def viewWatchLater(request):
 @permission_classes([IsAuthenticated])
 def removeLater(request, id):
     user = request.user
-    show = WatchLater.objects.filter(user=user,show=id).delete()
+    show = WatchLater.objects.filter(User_id=user,Show_id=id).delete()
     return Response(data={
         "Message":"Show is removed from your show later list"
     })
