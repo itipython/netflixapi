@@ -29,7 +29,7 @@ SECRET_KEY = '2%^du@@+vww9dcd06k_3*4i*l3f7g7abp22&ti(sip8cmh&id8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['itipythonapi.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -71,6 +71,14 @@ AUTH_USER_MODEL = 'Netflix.Profile'
 REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER':'Api.Serializer.ProfileSerializer' }
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 
 MIDDLEWARE = [
