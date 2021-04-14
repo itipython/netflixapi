@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '2%^du@@+vww9dcd06k_3*4i*l3f7g7abp22&ti(sip8cmh&id8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['itipythonapi.herokuapp.com','127.0.0.1']
 
@@ -92,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
@@ -121,11 +122,14 @@ WSGI_APPLICATION = 'Final.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd55psa5ec9u5lg',
+        'HOST':'ec2-107-22-245-82.compute-1.amazonaws.com',
+        'PORT':'5432',
+        'USER' : 'ldqnagzemixhox',
+        'PASSWORD': 'df998573be9f939893c302d1957918cdeefe8b799de62968eb819a741113fffb'
     }
 }
-
 
 
 REST_FRAMEWORK = {
