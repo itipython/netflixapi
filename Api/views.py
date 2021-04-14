@@ -135,15 +135,17 @@ def addWatchLater(request):
 @api_view(('GET',))    
 @permission_classes([IsAuthenticated])
 def viewWatchLater(request):
-    user_queryset = WatchLater.objects.filter(User_id=request.user, many=True)
-    # show_ids = []
+    user = ProfileSerializer(request.user)
+    user_queryset = WatchLater.objects.filter(user=user.data['id'])
+    show_ids = []
 
-    # for q in user_queryset:
-    #     show_ids.append(q.show_id)
+    for q in user_queryset:
+        show_ids.append(q.Show_id_id)
     
     shows_list = Show.objects.filter(id__in=show_ids)
     serializer = ShowSerializer(shows_list, many=True)
     return Response(serializer.data)
+
 
 
 # Delete Show from Watch Later
