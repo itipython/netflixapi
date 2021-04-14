@@ -80,5 +80,5 @@ class WatchLaterSerializer(serializers.ModelSerializer):
 class WatchedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Watched
-        fields =['show_id','user_id']
+        fields =['Show_id','User_id']
 
