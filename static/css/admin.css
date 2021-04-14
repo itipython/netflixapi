@@ -1,0 +1,137 @@
+        #header {
+            background-color: #111;
+            color: #fff;
+        }
+        
+        #branding h1 {
+            color: #e50914;
+            font-weight: bolder;
+            font-style: italic
+        }
+        
+        #branding h1 {
+            font-size: 1.5rem !important
+        }
+        
+        #header a:hover {
+            color: #e50914;
+            text-decoration: none;
+        }
+        #user-tools a{
+            border:none
+        }
+        
+        div.breadcrumbs {
+            background-color: #222;
+            color: #fff;
+            padding: 20px
+        }
+        
+        div.breadcrumbs a:hover {
+            color: #e50914
+        }
+        
+        .login {
+            background-color: #999
+        }
+        
+        #toggle-nav-sidebar {
+            background-color: #111;
+            color: #e50914
+        }
+        
+        fieldset.aligned {
+            background-color: transparent;
+            color: #fff;
+            border-radius: 10px
+        }
+        
+        .button,
+        input[type=submit],
+        input[type=button],
+        .submit-row input,
+        a.button,
+        input[type=submit].default,
+        #changelist .actions .button {
+            background-color: #e50914;
+            color: #fff;
+        }
+        
+        .button:hover,
+        input[type=submit]:hover,
+        input[type=button]:hover,
+        .submit-row input:hover,
+        a.button:hover,
+        input[type=submit]:hover.default:hover,
+        #changelist .actions .button:hover{
+            background-color: #e5091487!important;
+            color: #fff!important;
+        }
+        
+        #content {
+            color: #fff;
+            max-height: 100%
+        }
+        
+        #content label {
+            color: #e50914
+        }
+        
+        .form-row input,
+        .form-row textarea {
+            width: 50%!important
+        }
+        
+        .form-row.errors {
+            border: none;
+            margin-bottom: 5px
+        }
+        
+        .errornote,
+        .errorlist {
+            max-width: 200px;
+            margin: 30px
+        }
+        
+        .object-tools a:link,
+        .object-tools a:visited {
+            background-color: #e50914
+        }
+        
+        #content h1 {
+            color: #e50914;
+            font-weight: bold;
+        }
+        
+        a:link,
+        a:visited,
+        span.date-icon {
+            color: #e50914
+        }
+        /*.datetimeshortcuts #calendarlink0 .date-icon{
+    color:#e50914!important
+}*/
+        
+        .module h2,
+        .inline-group h2 {
+            background-color: #e50914
+        }
+        
+        .module caption {
+            background-color: #444;
+        }
+        
+        #changelist .paginator {
+            background-color: #e50914!important;
+            color: #fff!important;
+            font-weight: bold;
+            margin-top: 50px;
+            max-width: 20%;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        select[multiple] {
+            min-height: 30px;
+            max-height: 30px!important
+        }

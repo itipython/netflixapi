@@ -11,6 +11,8 @@ admin.site.register(Producer)
 admin.site.register(Prize)
 admin.site.register(Actor)
 
+admin.site.register(Country)
+
 
 admin.site.register(Profile)
 admin.site.register(Membership)
