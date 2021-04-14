@@ -77,7 +77,7 @@ def getShow(request, name):
     serializer = ShowSerializer(show)
     user = request.user
 
-    history = Watched.objects.create(show=show, user=user)
+    history, created = Watched.objects.update_or_create(show=show, user=user)
 
     return Response(serializer.data)
 

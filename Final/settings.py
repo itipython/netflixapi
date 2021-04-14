@@ -113,11 +113,8 @@ WSGI_APPLICATION = 'Final.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Netflix',
-        'USER':'Amr',
-        'PASSWORD':'159357',
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 
