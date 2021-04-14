@@ -76,7 +76,7 @@ class RegistrationSerilalizer(serializers.ModelSerializer):
 class WatchLaterSerializer(serializers.ModelSerializer):
     class Meta:
         model = WatchLater
-        fields = "__all__"
+        fields = ['Show_id', 'User_id']
 
 class WatchedSerializer(serializers.ModelSerializer):
     class Meta:
