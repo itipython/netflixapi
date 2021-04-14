@@ -85,7 +85,7 @@ def getShow(request, name):
 @api_view(('GET',))    
 @permission_classes([IsAuthenticated])
 def userHistory(request):
-    user_queryset = Watched.objects.filter(User_id=request.user)
+    user_queryset = Watched.objects.filter(User_id=Profile.objects.get(pk=request.user.pk))
     show_ids = []
 
     for q in user_queryset:
