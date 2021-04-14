@@ -85,7 +85,7 @@ def getShow(request, name):
 @api_view(('GET',))    
 @permission_classes([IsAuthenticated])
 def userHistory(request):
-    user_queryset = Watched.objects.filter(User_id=user.request.id)
+    user_queryset = Watched.objects.filter(User_id=request.user.id)
     show_ids = []
 
     for q in user_queryset:
@@ -112,7 +112,7 @@ def removeHistory(request, id):
 @api_view(['POST',])
 @permission_classes([IsAuthenticated])
 def addWatchLater(request):
-    show = WatchLaterSerializer(data=request)
+    show = WatchLaterSerializer(data=request.data)
     if show.is_valid():
         show.save()
         return Response(data={
