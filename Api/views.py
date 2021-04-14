@@ -116,7 +116,7 @@ def removeHistory(request, id):
 @api_view(['POST',])
 @permission_classes([IsAuthenticated])
 def addWatchLater(request):
-    myshow ={"Show_id":request.data.get("Show_id"),"User_id":request.user}
+    myshow ={"Show_id":request.data.get("Show_id"),"User_id":request.user.pk}
     show = WatchLaterSerializer(data=myshow, partial=True)
     if show.is_valid():
         show.save()
