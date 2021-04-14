@@ -121,8 +121,8 @@ def addWatchLater(request):
     if show.is_valid():
         show.save()
         return Response(data={
-            "Message":" show %s is Added to My List" %show.data["show"]
-        })
+            "Message":" show %s is Added to My List" %show.validated_data["show"]
+        }, status=status.HTTP_201_CREATED)
     else:
         return Response(data={
             'Sucess':'false',
