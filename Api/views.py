@@ -116,7 +116,8 @@ def removeHistory(request, id):
 @api_view(['POST',])
 @permission_classes([IsAuthenticated])
 def addWatchLater(request):
-    show = WatchLaterSerializer(data=request.data)
+    myshow ={"Show_id":request.data.get("Show_id"),"User_id":request.user}
+    show = WatchLaterSerializer(data=myshow, partial=True)
     if show.is_valid():
         show.save()
         return Response(data={
@@ -128,7 +129,6 @@ def addWatchLater(request):
             'Error': show.errors
             },status=status.HTTP_400_BAD_REQUEST
         )
-
 
 
 # View Watch Later List
