@@ -21,6 +21,7 @@ class ShowSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     membership = serializers.StringRelatedField()
+    country = serializers.StringRelatedField()
     class Meta:
         model = Profile
         exclude =  ['date_joined','password',"last_login", "is_superuser","is_staff","is_active", "groups","user_permissions"]
