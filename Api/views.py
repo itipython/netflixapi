@@ -81,19 +81,23 @@ def getShow(request, name):
 
     return Response(serializer.data)
 
+
+
 # View User History
 @api_view(('GET',))    
 @permission_classes([IsAuthenticated])
 def userHistory(request):
-    user_queryset = Watched.objects.filter(User_id=Profile.objects.get(pk=request.user.pk))
+    user = ProfileSerializer(request.user)
+    user_queryset = Watched.objects.filter(User_id=user.data['id'])
     show_ids = []
 
     for q in user_queryset:
-        show_ids.append(q.show_id)
+        show_ids.append(q.Show_id_id)
     
     shows_list = Show.objects.filter(id__in=show_ids)
     serializer = ShowSerializer(shows_list, many=True)
     return Response(serializer.data)
+
 
 
 # Delete Show from History
